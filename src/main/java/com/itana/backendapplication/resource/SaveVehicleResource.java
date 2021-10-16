@@ -28,6 +28,5 @@ public class SaveVehicleResource {
 	private String type;
 
 	@NotNull
-	@NotBlank(message = "number required")
 	private Long number;
 }

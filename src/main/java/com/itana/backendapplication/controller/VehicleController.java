@@ -52,7 +52,6 @@ public class VehicleController {
 		}
 	}
 
-	//TODO: add resource to update vehicle entity
 	@PutMapping(path = "/vehicle/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Vehicle> update(@Valid @RequestBody SaveVehicleResource resource, @PathVariable Long id){
 		try {
@@ -69,9 +68,8 @@ public class VehicleController {
 		}
 	}
 
-	//TODO: add resource to add vehicle
 	@PostMapping(path = "/vehicles/create", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Vehicle> create(@RequestBody SaveVehicleResource resource)throws Exception{
+	public ResponseEntity<Vehicle> create(@Valid @RequestBody SaveVehicleResource resource)throws Exception{
 		try {
 			Vehicle entity = ResourceToEntity(resource);
 			Vehicle newVehicle = vehicleService.save(entity);
