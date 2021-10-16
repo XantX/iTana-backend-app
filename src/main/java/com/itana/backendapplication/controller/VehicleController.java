@@ -1,9 +1,11 @@
 package com.itana.backendapplication.controller;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import com.itana.backendapplication.entity.Vehicle;
+import com.itana.backendapplication.resource.SaveVehicleResource;
 import com.itana.backendapplication.service.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class VehicleController {
 	@Autowired
 	private VehicleService vehicleService;
-
+	private Vehicle ResourceToEntity(SaveVehicleResource resource){
+		Vehicle newVehicle = new Vehicle();
+		newVehicle.setYear(resource.getYear());
+		newVehicle.setType(resource.getType());
+		newVehicle.setNumber(resource.getNumber());
+		newVehicle.setCategory(resource.getCategory());
+		return newVehicle;
+	}
 	@GetMapping(path = "/vehicles", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Vehicle>> fetchAll(){
 		try {
@@ -45,9 +54,11 @@ public class VehicleController {
 
 	//TODO: add resource to update vehicle entity
 	@PutMapping(path = "/vehicle/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Vehicle> update(@RequestBody Vehicle entity, @PathVariable Long id){
+	public ResponseEntity<Vehicle> update(@Valid @RequestBody SaveVehicleResource resource, @PathVariable Long id){
 		try {
 			if(vehicleService.findById(id).isPresent()){
+				Vehicle entity = ResourceToEntity(resource);
+				entity.setId(id);
 				Vehicle updatedVehicle = vehicleService.update(entity);
 				return new ResponseEntity<Vehicle>(updatedVehicle,HttpStatus.OK);
 			}else{
@@ -60,9 +71,9 @@ public class VehicleController {
 
 	//TODO: add resource to add vehicle
 	@PostMapping(path = "/vehicles/create", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Vehicle> create(@RequestBody Vehicle entity)throws Exception{
-
+	public ResponseEntity<Vehicle> create(@RequestBody SaveVehicleResource resource)throws Exception{
 		try {
+			Vehicle entity = ResourceToEntity(resource);
 			Vehicle newVehicle = vehicleService.save(entity);
 			return new ResponseEntity<Vehicle>(newVehicle, HttpStatus.OK);
 		} catch(Exception e){
