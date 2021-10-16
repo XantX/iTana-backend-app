@@ -42,10 +42,12 @@ public class VehicleController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	//TODO: add resource to update vehicle entity
 	@PutMapping(path = "/vehicle/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Vehicle> update(@RequestBody Vehicle entity){
+	public ResponseEntity<Vehicle> update(@RequestBody Vehicle entity, @PathVariable Long id){
 		try {
-			if(vehicleService.findById(entity.getId()).isPresent()){
+			if(vehicleService.findById(id).isPresent()){
 				Vehicle updatedVehicle = vehicleService.update(entity);
 				return new ResponseEntity<Vehicle>(updatedVehicle,HttpStatus.OK);
 			}else{
@@ -56,7 +58,7 @@ public class VehicleController {
 		}
 	}
 
-
+	//TODO: add resource to add vehicle
 	@PostMapping(path = "/vehicles/create", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Vehicle> create(@RequestBody Vehicle entity)throws Exception{
 
