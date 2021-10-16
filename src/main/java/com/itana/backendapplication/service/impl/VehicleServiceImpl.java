@@ -20,32 +20,27 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public Vehicle save(Vehicle entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleRepository.save(entity);
 	}
 
 	@Override
 	public List<Vehicle> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleRepository.findAll();
 	}
 
 	@Override
 	public Optional<Vehicle> findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleRepository.findById(id);
 	}
 
 	@Override
 	public Vehicle update(Vehicle entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleRepository.save(entity);
 	}
 
 	@Override
 	public void deleteById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		
+		vehicleRepository.deleteById(id);
 	}
 	
 }
