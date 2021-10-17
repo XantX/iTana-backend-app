@@ -54,7 +54,7 @@ public class VehicleController {
 		}
 	}
 
-	@PutMapping(path = "/vehicle/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/vehicles/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Vehicle> update(@Valid @RequestBody SaveVehicleResource resource, @PathVariable Long id){
 		try {
 			if(vehicleService.findById(id).isPresent()){
